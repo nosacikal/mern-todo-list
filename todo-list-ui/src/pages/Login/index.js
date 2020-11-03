@@ -12,33 +12,14 @@ import {
   ToLogin,
 } from './LoginElements'
 
-import { loginUser } from '../../api/auth'
-import { useHistory } from 'react-router-dom'
-import { userLogin } from '../../features/auth/action'
 import { rules } from './Validation'
-import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
+import { useLogin } from '../../custom'
 
 const Login = () => {
   let { register, handleSubmit, errors, setError } = useForm()
 
-  const history = useHistory()
-
-  const dispatch = useDispatch()
-
-  const onSubmit = async ({ username, password }) => {
-    let { data } = await loginUser(username, password)
-
-    if (data.error) {
-      // (5) tangani error bertipe 'invalidCredential'
-      setError('password', { type: 'invalidCredential', message: data.message })
-    } else {
-      let { user, token } = data
-
-      dispatch(userLogin(user, token))
-      history.push('/dashboard')
-    }
-  }
+  const onSubmit = useLogin(setError)
 
   return (
     <>

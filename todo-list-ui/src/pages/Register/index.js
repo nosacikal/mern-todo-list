@@ -14,41 +14,12 @@ import {
 
 import { useForm } from 'react-hook-form'
 import { rules } from './Validation'
-import { registerUser } from '../../api/auth'
-import { useHistory } from 'react-router-dom'
+import { useRegister } from '../../custom'
 
 const RegisterPage = () => {
   let { register, handleSubmit, errors, setError } = useForm()
 
-  const history = useHistory()
-
-  const onSubmit = async (formData) => {
-    let { password, confirmation_password } = formData
-
-    if (password !== confirmation_password) {
-      return setError('confirmation_password', {
-        type: 'equality',
-        message: 'Konfirmasi password harus sama dengan password',
-      })
-    }
-
-    const { data } = await registerUser(formData)
-
-    if (data.error) {
-      const fields = Object.keys(data.fields)
-
-      fields.forEach((field) => {
-        setError(field, {
-          type: 'server',
-          message: data.fields[field]?.properties?.message,
-        })
-      })
-
-      return
-    }
-
-    history.push('/login')
-  }
+  const onSubmit = useRegister(setError)
 
   return (
     <>
