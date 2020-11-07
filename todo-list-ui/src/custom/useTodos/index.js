@@ -14,6 +14,7 @@ import {
 
 const useTodos = () => {
   const [input, setInput] = useState('')
+  const [currentId, setCurrentId] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -29,9 +30,13 @@ const useTodos = () => {
 
   useEffect(() => {
     dispatch(getTodo())
-  }, [dispatch])
+  }, [currentId, dispatch])
 
   const todos = useSelector((state) => state.todo.items)
+
+  const update = useSelector((state) =>
+    currentId ? state.todo.items.find((item) => item._id === currentId) : null
+  )
 
   const handleChange = (e) => {
     setInput(e.target.value)
@@ -47,10 +52,18 @@ const useTodos = () => {
       checked: false,
     }
 
-    dispatch(addTodo(newTodo))
+    if (currentId) {
+      dispatch(updateTodo(currentId, newTodo))
+    } else {
+      dispatch(addTodo(newTodo))
+    }
 
-    setInput('')
+    clear()
   }
+
+  useEffect(() => {
+    if (update) setInput(update.title)
+  }, [update])
 
   const handleRemove = (_id) => {
     dispatch(removeTodo(_id))
@@ -70,6 +83,15 @@ const useTodos = () => {
       .then(() => history.push('/login'))
   }
 
+  const handleUpdate = (id) => {
+    setCurrentId(id)
+  }
+
+  const clear = () => {
+    setInput('')
+    setCurrentId(null)
+  }
+
   return {
     jsUcfirst,
     todos,
@@ -79,6 +101,9 @@ const useTodos = () => {
     handleToggle,
     handleLogout,
     input,
+    handleUpdate,
+    currentId,
+    setCurrentId,
   }
 }
 

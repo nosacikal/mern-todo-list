@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { ImageWelcome } from '../../assets'
 import WelcomeButton from '../../components/atoms/WelcomeButton'
 import {

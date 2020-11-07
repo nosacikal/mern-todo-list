@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FaTrash } from 'react-icons/fa'
+import { FaTrash, FaEdit } from 'react-icons/fa'
 
 export const ItemTodoContainer = styled.div`
   display: flex;
@@ -54,6 +54,13 @@ export const ItemTitle = styled.div`
 `
 
 export const ItemIconDelete = styled(FaTrash)`
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 12px;
+  margin-top: 4px;
+`
+export const ItemIconUpdate = styled(FaEdit)`
   font-size: 1rem;
   color: #fff;
   cursor: pointer;

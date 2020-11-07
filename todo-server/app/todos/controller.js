@@ -9,8 +9,6 @@ const index = async (req, res, next) => {
       .populate('user')
       .select('-__v -createdAt -updatedAt')
 
-    console.log(todo)
-
     return res.json(todo)
   } catch (error) {
     if (error && error.name === 'ValidationError') {
@@ -53,8 +51,6 @@ const store = async (req, res, next) => {
 const update = async (req, res, next) => {
   try {
     const payload = req.body
-
-    console.log(req.params.id)
 
     const todo = await Todo.findOneAndUpdate({ _id: req.params.id }, payload, {
       new: true,

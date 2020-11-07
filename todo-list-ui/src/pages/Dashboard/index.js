@@ -17,6 +17,7 @@ const Dashboard = () => {
     handleToggle,
     handleLogout,
     input,
+    handleUpdate,
   } = useTodos()
 
   return (
@@ -34,15 +35,15 @@ const Dashboard = () => {
           />
           <ButtonTodo title='Add' />
         </DashboardFormContainer>
-        {todos.map((todo, index) => {
+        {todos.map((todo) => {
           return (
             <ItemTodo
-              index={index}
-              keys={todo._id}
+              key={todo._id}
               onChange={() => handleToggle(todo._id, todo.checked)}
               checked={todo.checked}
               title={todo.title}
               onClick={() => handleRemove(todo._id)}
+              handleUpdate={() => handleUpdate(todo._id)}
             />
           )
         })}
