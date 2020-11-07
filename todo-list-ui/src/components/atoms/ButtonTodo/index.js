@@ -1,9 +1,11 @@
 import { TodoButton } from './ButtonTodoElements'
 
-const ButtonTodo = ({ title, onClick }) => {
+const ButtonTodo = ({ title, onClick, currentId }) => {
   return (
     <>
-      <TodoButton onClick={onClick}>{title}</TodoButton>
+      <TodoButton onClick={onClick} currentId={currentId}>
+        {title}
+      </TodoButton>
     </>
   )
 }

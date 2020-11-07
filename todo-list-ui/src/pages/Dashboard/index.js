@@ -18,6 +18,7 @@ const Dashboard = () => {
     handleLogout,
     input,
     handleUpdate,
+    currentId,
   } = useTodos()
 
   return (
@@ -29,11 +30,15 @@ const Dashboard = () => {
         </DashboardTitle>
         <DashboardFormContainer onSubmit={handleSubmit}>
           <FormTodo
-            placeholder='Add Todo'
+            placeholder={currentId ? 'Update Todo' : 'Add Todo'}
             value={input}
             onChange={handleChange}
+            currentId={currentId}
           />
-          <ButtonTodo title='Add' />
+          <ButtonTodo
+            title={currentId ? 'Update' : 'Add'}
+            currentId={currentId}
+          />
         </DashboardFormContainer>
         {todos.map((todo) => {
           return (
